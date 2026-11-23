@@ -1,7 +1,254 @@
 <!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#385edb"><title>知练 · 数字媒体备考</title><style>
 *{box-sizing:border-box}body{margin:0;background:#f5f6fa;color:#253149;font:15px/1.65 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #9db5ff;outline-offset:2px}header{background:white;border-bottom:1px solid #e4e8f0;padding:20px max(20px,calc((100vw - 1200px)/2));display:flex;justify-content:space-between;gap:15px;align-items:center}.brand{font-size:25px;font-weight:850;color:#385edb}.muted{color:#7b8699;font-size:13px}main{max-width:1240px;margin:auto;padding:28px 20px}h1{font-size:28px;margin:5px 0}h2{font-size:23px;line-height:1.7;margin:22px 0}h3{font-size:16px;margin:0 0 12px}.intro{margin-bottom:22px}.grid{display:grid;grid-template-columns:180px minmax(0,1fr) 225px;gap:20px;align-items:start}.panel{background:white;border:1px solid #e4e8f0;border-radius:17px;padding:23px}nav button{display:block;width:100%;text-align:left;margin:5px 0;padding:12px;border:0;background:white;color:#67748a;border-radius:9px}nav button.active{background:#eef2ff;color:#385edb;font-weight:600}.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:19px}select,input[type=search]{border:1px solid #dce3ed;border-radius:8px;background:white;padding:9px;min-width:0}input[type=search]{width:100%}.filters select{flex:1;max-width:100%}.tag{display:inline-block;background:#eef2ff;color:#4264c9;padding:5px 9px;border-radius:6px;font-size:12px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center}.btn{border:1px solid #dce3ed;border-radius:9px;background:white;color:#53627a;padding:10px 14px}.primary{background:#385edb;color:white;border-color:#385edb}.option{display:flex;align-items:start;gap:14px;width:100%;text-align:left;border:1px solid #dce3ed;border-radius:11px;background:white;padding:15px;margin:10px 0;color:#35435b}.option b{background:#f0f3f8;padding:1px 8px;border-radius:5px}.option.good{border-color:#329b75;background:#edf9f2}.option.bad{border-color:#ce7171;background:#fff0ef}.option:disabled{opacity:1}.feedback{background:#f0f4fd;border-radius:11px;padding:18px;margin-top:19px;line-height:1.9;white-space:pre-line;overflow-wrap:anywhere}.memo{background:#fff6e2;border-radius:11px;padding:17px;margin-top:13px}.actions{display:flex;justify-content:space-between;gap:10px;margin-top:22px}.stats{display:flex;gap:25px;margin:20px 0}.stats b{display:block;font-size:28px}.list{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:15px}.list button{background:#f0f3f8;border:0;border-radius:6px;padding:8px 1px;font-size:12px;color:#5f6e87}.list .current{background:#385edb;color:white}.list .yes{background:#e0f3e9;color:#25815c}.list .no{background:#fce8e8;color:#ac5656}.foot{margin-top:20px;font-size:12px;color:#8b95a7;line-height:1.9}.tools button{margin:6px 3px 0 0}.empty{text-align:center;padding:40px 10px;color:#7b8699}textarea{width:100%;min-height:125px;padding:13px;border:1px solid #dce3ed;border-radius:10px;resize:vertical}.notice{padding:12px 15px;border-radius:10px;background:#fff6df;margin-bottom:18px;font-size:13px}.pending{border-left:3px solid #e0af4a;padding-left:14px}details{margin-top:15px}summary{cursor:pointer;color:#63728d}a{color:#385edb}.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#26334d;color:white;padding:12px 20px;border-radius:10px;z-index:10;max-width:90vw}hr{border:0;border-top:1px solid #edf0f5;margin:20px 0}@media(max-width:1050px){.grid{grid-template-columns:155px minmax(0,1fr)}aside{grid-column:2}.list{grid-template-columns:repeat(10,1fr)}}@media(max-width:650px){header{padding:16px}.brand{font-size:22px}main{padding:18px 13px}.grid{display:block}.panel{padding:19px}nav.panel{display:flex;overflow:auto;padding:6px;margin-bottom:13px}nav button{white-space:nowrap;text-align:center;width:auto;flex:none;margin:0;padding:10px 12px}aside{margin-top:14px}h1{font-size:24px}h2{font-size:20px}header .muted{display:none}.list{grid-template-columns:repeat(6,1fr)}.actions .btn{flex:1}.filters{gap:7px}.top{align-items:start}.option{padding:14px 12px}}
+
+/* Keep question navigation within thumb reach after revealing the answer. */
+body{padding-bottom:calc(112px + env(safe-area-inset-bottom,0px))}
+.question-nav{position:fixed;z-index:20;left:50%;transform:translateX(-50%);bottom:calc(12px + env(safe-area-inset-bottom,0px));width:calc(100% - 24px);max-width:620px;margin:0;padding:12px;gap:12px;background:rgba(255,255,255,.98);border:1px solid #dce3ed;border-radius:16px;box-shadow:0 6px 30px rgba(37,49,73,.16)}
+.question-nav .btn{flex:1;min-height:50px;font-size:16px;font-weight:600;touch-action:manipulation}
+.toast{bottom:calc(108px + env(safe-area-inset-bottom,0px))}
+@media(max-width:650px){.question-nav{bottom:0;width:100%;max-width:none;border-radius:16px 16px 0 0;padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px))}.question-nav .btn{min-height:52px}.toast{bottom:calc(104px + env(safe-area-inset-bottom,0px))}}
 </style></head><body><header><div class="brand">▣ 知练 <span class="muted">数字媒体教师招聘备考</span></div><button class="btn primary" id="download">下载离线单文件</button></header><main><div class="intro"><h1>每道题，都多记住一点。</h1><div class="muted" id="inventory"></div></div><div id="storageWarning" class="notice" hidden></div><div class="grid"><nav class="panel" id="nav"></nav><div><div class="filters"><input type="search" id="search" placeholder="搜索题目、答案或考点" aria-label="搜索题库"><select id="category" aria-label="知识模块"><option value="all">全部知识模块</option></select><select id="source" aria-label="题目来源"><option value="all">全部来源</option><option value="original">原创模拟</option><option value="shot1">截图第一批</option><option value="shot2">截图第二批</option></select><select id="type" aria-label="题目类型"><option value="all">全部题型</option><option value="mc">单选题</option><option value="tf">判断题</option><option value="recall">背诵 / 简答 / 实操</option></select></div><section class="panel" id="card" aria-label="答题区域"></section></div><aside><section class="panel"><h3>学习记录</h3><div class="stats"><div><b id="answered">0</b><span class="muted">客观已答</span></div><div><b id="accuracy">—</b><span class="muted">首次正确率</span></div></div><div class="muted" id="selfstats"></div><hr><h3 id="listtitle">当前题目</h3><div class="list" id="numbers"></div><div class="actions"><button class="btn" id="pageprev">前页</button><button class="btn" id="pagenext">后页</button></div><div class="foot">点选即判分。简答题展示参考要点后自评；待核实题不计分。</div></section><section class="panel tools" style="margin-top:15px"><h3>备份与迁移</h3><button class="btn" id="export">导出记录</button><button class="btn" id="import">导入记录</button><input type="file" id="file" accept="application/json,.json" hidden><details><summary>来源与使用说明</summary><div class="foot">原创题为模拟练习，非官方考纲或真题。截图题出处及原答案未提供；已标记疑义。部分选择题保留考点并改作回忆卡。学习数据仅存当前浏览器；跨设备请导出、导入。离线文件不含账号同步。iPhone/iPad建议在Safari中以网页方式打开；“文件”快速预览可能不执行交互脚本。本文件不等于已安装的PWA。</div></details></section></aside></div><div class="foot">Figma参考：<a href="https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties">组件属性</a> · <a href="https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections">变量</a> · <a href="https://help.figma.com/hc/en-us/articles/31351261703063-FD4B-Auto-layout-fundamentals">自动布局</a>。资料链接需联网，刷题本身无需联网。</div></main>
-<script id="external-bank" src="zhilian-bank.js"></script><script id="embedded-bank" type="application/json">null</script><script>
+<script id="inline-bank">window.bankText = `001|UI/UX|用户界面通常用什么缩写？|UI|UI是用户界面，UX是用户体验。|UI;SQL;MP4;RGB
+002|UI/UX|UX主要关注什么？|用户使用产品的整体体验|包括理解、操作、效率与感受。|用户使用产品的整体体验;图片数量;安装包大小;文件命名
+003|UI/UX|界面美观就能保证用户体验良好。|错|美观不能代替任务可完成性。
+004|UI/UX|深入了解用户行为动机，通常采用什么方法？|用户访谈|访谈挖原因。|用户访谈;视频转码;纹理压缩;灯光烘焙
+005|UI/UX|用户画像应以研究证据为基础。|对|画像有依据，设计少猜测。
+006|UI/UX|观察用户完成具体任务，主要用于什么？|可用性测试|看操作，找障碍。|可用性测试;印刷校色;音频降噪;模型绑定
+007|UI/UX|“你是不是觉得这个界面非常方便？”属于中性提问。|错|避免暗示预期答案。
+008|UI/UX|问卷更适合什么工作？|收集较多受访者的结构化回答|问卷质量取决于题目与样本。|收集较多受访者的结构化回答;替代所有访谈;自动证明因果关系;完成三维建模
+009|UI/UX|用户口头表示喜欢，等于实际操作一定顺利。|错|态度与行为分别验证。
+010|UI/UX|竞品分析的主要价值是什么？|比较方案并发现机会|比较找依据，不能照搬。|比较方案并发现机会;直接复制全部设计;免除用户研究;保证商业成功
+011|UI/UX|用户需求与解决方案有什么区别？|需求描述目标或问题；方案描述实现方式；同一需求可有多个方案。|需求问为何，方案答如何。
+012|UI/UX|信息架构主要解决什么问题？|内容组织与导航|内容怎么分、怎么找。|内容组织与导航;镜头曝光;音频采样;视频编码
+013|UI/UX|卡片分类常辅助研究什么？|内容分类方式|观察用户如何组织内容。|内容分类方式;视频帧率;相机焦距;模型面数
+014|UI/UX|用户流程图表达用户完成目标的步骤与分支。|对|流程表达怎么走。
+015|UI/UX|用户旅程图通常关注什么？|不同阶段的行为、感受与痛点|分阶段看体验。|不同阶段的行为、感受与痛点;只有按钮颜色;只有字体字号;只有服务器型号
+016|UI/UX|线框图必须包含最终配色和精细插画。|错|线框图主要表达布局、层级与结构。
+017|UI/UX|早期快速比较多个交互流程，优先选择什么？|低保真原型|先通流程，再细界面。|低保真原型;最终宣传片;印刷成品;精细角色模型
+018|UI/UX|高保真原型通常更接近最终产品的视觉或交互表现。|对|接近成品不等于需求已验证。
+019|UI/UX|原型设计有什么作用？|表达方案；沟通需求；验证流程；提前发现问题；降低返工成本。|表达、沟通、验证、纠错。
+020|UI/UX|提交后显示“正在处理”，体现什么？|系统状态反馈|让用户知道操作已被接收。|系统状态反馈;随机装饰;数据加密;图像锐化
+021|UI/UX|为减少页面元素，可以隐藏所有操作且不提供提示。|错|简洁需兼顾可发现性。
+022|UI/UX|删除后提供“撤销”，主要帮助什么？|从误操作中恢复|误操作可挽回。|从误操作中恢复;提高照片曝光;增加网络带宽;改变色域
+023|UI/UX|输入邮箱时提示格式错误，属于什么？|输入校验与纠错反馈|说明问题与修正方式。|输入校验与纠错反馈;材质映射;音频混响;视频调色
+024|UI/UX|错误提示只显示“失败”，通常已足够。|错|应说明原因及下一步。
+025|UI/UX|同一功能在不同页面用一致名称，有利于什么？|降低理解成本|同功能，同表达。|降低理解成本;增加文件体积;改变屏幕亮度;提高采样率
+026|UI/UX|一致性意味着所有按钮必须完全相同。|错|不同层级和风险可作区分。
+027|UI/UX|主要操作比次要操作突出，体现什么？|视觉层级|帮助识别重点。|视觉层级;帧间压缩;色温校正;空间定位
+028|UI/UX|如何建立视觉层级？|字号、字重、颜色对比、位置、留白、大小和分组。|大小、轻重、远近、疏密。
+029|UI/UX|留白一定浪费屏幕空间。|错|留白有助于分组与阅读。
+030|UI/UX|距离近的元素易被认为同组，体现什么？|接近原则|近则成组。|接近原则;曝光互易;声音遮蔽;透视缩短
+031|UI/UX|外观相似的元素易被认为相关，体现什么？|相似原则|像则相关。|相似原则;运动模糊;光线折射;视频转场
+032|UI/UX|仅用红绿区分错误成功，对所有用户都足够。|错|应结合文字与图标。
+033|UI/UX|图片替代文本主要帮助什么？|理解图片信息|包括使用屏幕阅读器的情境。|理解图片信息;自动提高分辨率;自动压缩视频;增加帧率
+034|UI/UX|键盘操作支持是无障碍设计的重要方面。|对|用户不一定用鼠标。
+035|UI/UX|移动端按钮过小且过近，易造成什么？|误触|注意触控尺寸与间距。|误触;色温漂移;视频掉音;模型破面
+036|UI/UX|响应式设计需要考虑什么？|布局、内容优先级、可读性、输入方式、横竖屏和屏幕宽度。|布局变，任务不断。
+037|UI/UX|手机端可直接把桌面页面等比例缩小。|错|阅读、输入与操作条件不同。
+038|UI/UX|返回列表时保留筛选条件，改善什么？|操作连续性|减少重复劳动。|操作连续性;图像锐度;音频动态范围;光照精度
+039|UI/UX|没有记录的页面，怎样设计更好？|解释状态并给出下一步|空状态也引导任务。|解释状态并给出下一步;只留纯白;显示无关广告;自动删除账户
+040|UI/UX|加载占位能证明数据保存成功。|错|加载与成功是不同状态。
+041|UI/UX|可用性测试可记录哪些指标？|完成率、完成时间、错误、求助情况与主观反馈。|做成没、多快、错几次、感受如何。
+042|UI/UX|用户犹豫时主持人应立即告知正确步骤。|错|过度指导会掩盖问题。
+043|UI/UX|说明“被测试的是产品”，主要为了什么？|减少被考核压力|鼓励表达真实困难。|减少被考核压力;保证任务全部成功;替代知情说明;增加测试难度
+044|UI/UX|A/B测试中两个数字不同，就能确定改版有效。|错|还需考虑分组、样本、波动和指标。
+045|UI/UX|点击率提高但完成率下降，应怎样？|结合目标分析整体影响|局部指标不能代替整体目标。|结合目标分析整体影响;只看点击率;删除全部数据;必然立即全量发布
+046|UI/UX|设计系统通常包含什么？|原则、颜色、排版、间距、组件及状态、使用说明。|有规则、有组件、有用法。
+047|UI/UX|组件复用减少重复设计，但仍需考虑场景。|对|复用不是机械套用。
+048|UI/UX|自动布局主要帮助什么？|内容变化时维持布局关系|管理排列、间距与尺寸。|内容变化时维持布局关系;自动完成用户访谈;自动生成可靠研究结论;自动招聘报名
+049|UI/UX|用户重复点击支付按钮，如何改善？|即时反馈；处理中防重复；明确结果；查询订单；后端处理重复请求。|点有回应，结果可查。
+050|UI/UX|如何设计校园预约系统？|明确用户与规则；梳理预约取消查询；制作原型；处理异常；测试迭代。|人、规则、流程、异常、验证。
+051|AR/VR|在真实环境叠加虚拟信息，属于什么？|AR|现实上加。|AR;纯音频剪辑;平面印刷;文本排版
+052|AR/VR|通过头显进入计算机生成环境，通常属于什么？|VR|进入虚拟。|VR;CMYK;OCR;WAV
+053|AR/VR|AR和VR是完全相同的概念。|错|对真实环境的呈现方式不同。
+054|AR/VR|XR通常统称什么？|扩展现实相关技术|常统称AR、VR等。|扩展现实相关技术;图片压缩算法;印刷规格;音频容器
+055|AR/VR|什么是沉浸感？|用户被体验环境包围、投入其中的感受，受视觉、声音、交互和一致性影响。|看、听、动共同投入。
+056|AR/VR|画面越逼真就越适合所有VR任务。|错|需考虑任务、性能、舒适度和成本。
+057|AR/VR|3DoF通常包含什么？|三个旋转自由度|三轴旋转。|三个旋转自由度;三个视频轨道;三种颜色;三个音频声道
+058|AR/VR|6DoF相比3DoF增加什么？|三个平移自由度|能转，也能移动。|三个平移自由度;三种字体;三张贴图;三段字幕
+059|AR/VR|空间跟踪有助于保持虚拟物体与环境的位置关系。|对|跟踪不稳会漂移。
+060|AR/VR|平面检测有什么用途？|识别桌面地面；辅助放置虚拟物体；支持空间交互。|先找平面，再放物体。
+061|AR/VR|虚拟物体漂在桌面上，先检查什么？|放置位置和空间对齐|还需看模型原点与尺度。|放置位置和空间对齐;字幕字体;音频码率;文件扩展名
+062|AR/VR|虚实遮挡关系影响AR真实感。|对|前后关系错误破坏可信度。
+063|AR/VR|空间锚点主要用于什么？|关联内容与空间位置|给内容定位置。|关联内容与空间位置;压缩音频;修改字体;导出字幕
+064|AR/VR|输入到画面的明显延迟会影响VR体验。|对|响应应及时稳定。
+065|AR/VR|如何有助于减少VR不适？|保持稳定性能并谨慎设计移动方式|舒适度需综合设计。|保持稳定性能并谨慎设计移动方式;随机摇晃视角;强制快速旋转;增加延迟
+066|AR/VR|视觉与身体运动感知不一致，可能引起不适。|对|这是相关因素之一。
+067|AR/VR|瞬移移动方式有什么特点？|选择目标后切换位置；减少持续视觉移动；需提示目标与朝向。|选位置，再切换。
+068|AR/VR|手柄射线指向远处菜单，属于什么？|射线指向交互|适合一定距离的选择。|射线指向交互;印刷分色;声音归一化;视频插帧
+069|AR/VR|所有VR菜单都必须跟随头部移动。|错|应按任务选择固定方式。
+070|AR/VR|三维按钮应有哪些反馈？|可操作提示、指向反馈、按下反馈、结果反馈，必要时声音和触觉。|可见、可选、可按、知结果。
+071|AR/VR|空间音频的重要作用是什么？|提供声音方位线索|也可引导注意。|提供声音方位线索;提高模型面数;改变分辨率;自动建模
+072|AR/VR|VR要考虑现实活动区域和障碍物。|对|结合真实空间条件设计。
+073|AR/VR|AR为什么考虑真实环境光线？|影响相机识别、跟踪、可读性与虚实融合。|光影响识别，也影响融合。
+074|AR/VR|AR展品大小失真，怎么排查？|模型单位、导入缩放、实际尺寸、放置逻辑、观察距离。|单位、比例、位置、距离。
+075|AR/VR|博物馆AR导览应考虑什么？|用户需求、内容价值、定位方式、操作负担、环境、兼容与现场测试。|内容有用，现场能用。
+076|引擎与三维|Unity场景中的基础对象通常叫什么？|GameObject|功能通过组件组合。|GameObject;WAV;JPEG;CSV
+077|引擎与三维|Unity描述位置旋转缩放的组件是什么？|Transform|位、转、缩。|Transform;AudioClip;Texture;Font
+078|引擎与三维|组件为Unity对象提供不同功能。|对|如渲染、碰撞、脚本行为。
+079|引擎与三维|保存并复用已配置对象，通常用什么？|Prefab|对象配置可复用。|Prefab;字幕文件;音频波形;色卡
+080|引擎与三维|场景只能包含一个对象。|错|场景组织多个对象。
+081|引擎与三维|父子层级通常影响子对象的什么？|空间变换|区分局部与世界坐标。|空间变换;文件扩展名;音频编码;用户密码
+082|引擎与三维|局部坐标与世界坐标有何区别？|世界坐标相对全局参考系；局部坐标相对父对象参考系。|世界看全局，局部看父级。
+083|引擎与三维|材质可以直接替代碰撞组件。|错|外观与碰撞不同。
+084|引擎与三维|Mesh主要描述什么？|几何形状|通常含顶点、边、面等。|几何形状;音频时长;视频码率;文字语言
+085|引擎与三维|材质主要控制什么？|表面渲染表现|如颜色和粗糙度。|表面渲染表现;访谈顺序;剪辑点;文件权限
+086|引擎与三维|纹理只能表示颜色。|错|也能承载法线、粗糙度等。
+087|引擎与三维|UV的主要作用是什么？|建立模型表面与二维纹理的对应关系。|三维表面对应二维图。
+088|引擎与三维|法线贴图通常用于什么？|模拟表面细节的光照变化|通常不直接改变轮廓。|模拟表面细节的光照变化;自动增加真实几何;修改声道;替代所有灯光
+089|引擎与三维|模型面数越高，所有情况效果都越好。|错|平衡视觉与性能。
+090|引擎与三维|LOD的基本思路是什么？|按条件使用不同细节模型|远近不同，细节分级。|按条件使用不同细节模型;永远用最高细节;删除全部材质;只提高音量
+091|引擎与三维|剔除不可见物体能减少部分渲染工作。|对|收益取决于场景和实现。
+092|引擎与三维|场景摄像机主要作用是什么？|确定观察与成像视角|决定看到什么。|确定观察与成像视角;编写公告;管理问卷;自动生成对白
+093|引擎与三维|透视投影与正交投影有何区别？|透视近大远小；正交投影大小不随深度按透视规律缩小。|透视近大远小。
+094|引擎与三维|灯光、材质、环境共同影响最终外观。|对|不能只看材质参数。
+095|引擎与三维|烘焙光照通常指什么？|预计算部分光照信息|适合可预计算场景。|预计算部分光照信息;现场拍摄;自动录音;修改屏幕尺寸
+096|引擎与三维|烘焙可无条件替代全部动态光照需求。|错|动态变化需相应方案。
+097|引擎与三维|Rigidbody通常关联什么？|刚体物理模拟|刚体参与物理。|刚体物理模拟;字体排版;视频编码;图片裁剪
+098|引擎与三维|Collider主要用于什么？|定义碰撞形状|碰撞看形状。|定义碰撞形状;定义对白;定义色彩模式;定义码率
+099|引擎与三维|触发区域一定像实体墙一样阻挡物体。|错|触发通常检测进入、停留、离开。
+100|引擎与三维|射线检测可用于哪些交互？|选择对象、视线遮挡检测、判断指向、辅助地面检测。|沿线查命中。
+101|引擎与三维|Unity的Update通常用于什么？|每帧更新逻辑|注意每帧工作量。|每帧更新逻辑;只在卸载执行;只处理音频导出;自动建模
+102|引擎与三维|连续移动应考虑帧间时间。|对|避免速度直接依赖帧数。
+103|引擎与三维|Unreal Blueprint是什么？|可视化脚本系统|节点组织逻辑。|可视化脚本系统;图片容器;字体文件;视频编码
+104|引擎与三维|可视化脚本不需要理解变量条件和事件。|错|编程逻辑依然重要。
+105|引擎与三维|事件驱动是什么意思？|点击、碰撞、输入等事件发生时执行相应逻辑。|事情发生，逻辑响应。
+106|引擎与三维|卡顿时合理第一步是什么？|用性能工具定位瓶颈|先测再改。|用性能工具定位瓶颈;随机删除文件;只换字体;盲目加灯光
+107|引擎与三维|Draw Call少就保证流畅。|错|还可能受GPU、脚本、内存限制。
+108|引擎与三维|导入三维资源后检查什么？|比例、方向、材质纹理、法线、动画、碰撞、体积。|大小朝向对，材质动画全。
+109|引擎与三维|点击展品显示介绍面板，如何组织逻辑？|接收输入、检测目标、读取数据、更新展示、关闭、处理空目标。|输入、命中、取数、展示。
+110|引擎与三维|三维场景在移动设备卡顿，怎么处理？|真机分析瓶颈；优化模型材质灯光纹理脚本；复测质量与性能。|真机测，针对改。
+111|摄影视频|曝光三要素是什么？|光圈、快门时间、ISO|光圈景深、快门动感、ISO看画质。|光圈、快门时间、ISO;字号、行距、字重;面数、骨骼、UV;帧率、声道、字幕
+112|摄影视频|f/2.8的光圈通常比f/8更大。|对|数小孔大。
+113|摄影视频|其他条件相同，缩短快门时间通常会怎样？|减少进光量|时间短，光更少。|减少进光量;增加曝光时间;必然增加像素;改变文件名
+114|摄影视频|长曝光可能产生更明显运动模糊。|对|与主体及相机运动有关。
+115|摄影视频|景深指什么？|可接受清晰的空间范围|清晰范围不是文件大小。|可接受清晰的空间范围;视频总时长;音频频率范围;文件体积
+116|摄影视频|其他条件相同，收小光圈通常增加景深。|对|收小光圈即增大光圈数值。
+117|摄影视频|提高ISO要注意什么？|曝光需求、噪点、动态范围、设备表现和补光等替代方案。|亮度要够，画质要看。
+118|摄影视频|白平衡主要用于什么？|调整色彩以适应光源条件|适应光源，处理色偏。|调整色彩以适应光源条件;增加帧率;改变焦距;降低音量
+119|摄影视频|不同光源可能让同一白色物体有不同色偏。|对|受光源光谱和设置影响。
+120|摄影视频|同画幅下焦距与什么密切相关？|视角|通常焦距长，视角窄。|视角;音频码率;视频时长;字幕颜色
+121|摄影视频|同焦距不同画幅的视角必然相同。|错|画幅尺寸影响视角。
+122|摄影视频|特写适合强调什么？|局部细节或表情|局部信息放大。|局部细节或表情;所有空间关系;完整城市布局;全部场景信息
+123|摄影视频|远景、全景、近景各有何用途？|远景突出环境；全景展示整体与空间关系；近景强调状态表情。|远环境，全关系，近人物。
+124|摄影视频|镜头运动应服务信息与叙事。|对|避免只为炫技。
+125|摄影视频|对话拍摄保持轴线关系，主要帮助什么？|保持空间方向连续性|减少空间混乱。|保持空间方向连续性;提高亮度;消除噪点;改变画幅
+126|摄影视频|越轴永远不能使用。|错|可有意识使用，注意空间理解。
+127|摄影视频|分镜脚本通常包含什么？|镜号、画面、景别、机位运动、时长、对白声音、备注。|内容、拍法、时间、声音。
+128|摄影视频|25fps表示什么？|每秒25帧|fps看每秒几帧。|每秒25帧;宽25像素;25声道;25MB
+129|摄影视频|同分辨率视频文件大小一定相同。|错|还受时长、码率、编码、音频影响。
+130|摄影视频|MP4属于什么？|容器格式|容器装音视频。|容器格式;镜头类型;光圈单位;色温单位
+131|摄影视频|H.264是什么？|视频编码标准|编码不同于容器。|视频编码标准;图片尺寸;音频声道;镜头焦距
+132|摄影视频|相同扩展名保证所有设备播放。|错|还要看编码与设备支持。
+133|摄影视频|分辨率、帧率、码率各描述什么？|像素尺寸、每秒帧数、单位时间数据量。|多大、多流畅、多数据。
+134|摄影视频|J-cut通常有什么特点？|下一镜头声音先进入|先闻其声。|下一镜头声音先进入;所有声音晚于画面;只能用于动画;必须黑场
+135|摄影视频|L-cut通常有什么特点？|上一镜头声音延续到下一画面|画面已换，声音还留。|上一镜头声音延续到下一画面;必须静音;必须慢动作;只能片尾用
+136|摄影视频|转场效果越多作品一定越好。|错|转场服务节奏与内容。
+137|摄影视频|色彩校正通常优先处理什么？|曝光、白平衡、镜头匹配|先处理基础问题。|曝光、白平衡、镜头匹配;用户画像;模型骨骼;页面跳转
+138|摄影视频|校正与风格化调色有何侧重？|校正偏基础还原统一；风格化调色偏情绪风格；实践可交叉。|先统一，再表达。
+139|摄影视频|严重削波一定能在后期完整恢复。|错|丢失信息不能保证恢复。
+140|摄影视频|采访减少噪声更合理做法是什么？|选择环境并让麦克风靠近声源|源头控制更可靠。|选择环境并让麦克风靠近声源;只靠后期;随意增大增益;关闭监听
+141|摄影视频|拍摄时为什么监听声音？|发现噪声、失真、断音、摩擦声、电平异常，及时解决。|现场听见，现场解决。
+142|摄影视频|字幕需兼顾可读性、时间和画面。|对|不只看字体好不好看。
+143|摄影视频|采访人声很闷，如何排查？|麦克风位置遮挡、设置、原轨、降噪、均衡、播放设备。|先查原声，再查处理。
+144|摄影视频|一分钟校园宣传片前期准备什么？|受众、信息、脚本分镜、计划、人员设备、场地授权、声音。|给谁看、讲什么、怎么拍。
+145|摄影视频|手机和大屏输出前检查什么？|比例、分辨率、字幕、裁切、编码、音量、目标设备播放。|不同屏幕，分别验收。
+146|视觉基础|位图由什么组成？|像素|位图看像素。|像素;音符;数据库表;骨骼
+147|视觉基础|矢量图主要怎样描述？|数学定义的路径与形状|矢量看路径。|数学定义的路径与形状;录音波形;相机噪声;视频帧序列
+148|视觉基础|频繁缩放的标志通常适合矢量形式。|对|轮廓可重新计算绘制。
+149|视觉基础|位图无限放大不会影响清晰度。|错|原始像素信息有限。
+150|视觉基础|RGB属于什么模型？|加色模型|屏幕加光。|加色模型;减色模型;声音模型;空间定位模型
+151|视觉基础|CMYK通常用于什么？|彩色印刷|印刷用墨。|彩色印刷;空间音频;刚体碰撞;原型跳转
+152|视觉基础|屏幕色彩一定能在纸上完全再现。|错|色域、设备、油墨、纸张影响结果。
+153|视觉基础|色相、饱和度、明度各表示什么？|颜色类别、鲜艳程度、明暗程度。|什么色、多鲜艳、多明亮。
+154|视觉基础|Alpha通道通常表示什么？|透明度信息|Alpha管透明。|透明度信息;焦距;音频时长;页码
+155|视觉基础|常见JPEG适合直接保存透明背景。|错|常见JPEG不支持透明通道。
+156|视觉基础|保存透明背景界面图片通常选什么？|PNG|透明图片常用PNG。|PNG;WAV;TXT;MP3
+157|视觉基础|有损压缩可能丢失原始信息。|对|权衡体积与质量。
+158|视觉基础|PPI与DPI有何区别？|PPI是每英寸像素数；DPI是每英寸输出点数，常用于打印设备。|P像素，D输出点。
+159|视觉基础|对齐有助于什么？|建立秩序与关联|对齐有秩序。|建立秩序与关联;增加噪声;改变帧率;自动渲染
+160|视觉基础|字体种类越多信息层次一定越清晰。|错|控制字体，建立稳定层级。
+161|视觉基础|正文排版考虑什么？|字体、字号、行距、行长、对比、段距、阅读设备。|字、行、段、屏一起看。
+162|视觉基础|网格系统主要帮助什么？|组织版面并保持布局一致|网格组织信息。|组织版面并保持布局一致;提高音量;改变光圈;自动文案
+163|视觉基础|设计师懂的图标所有用户都懂。|错|需考虑经验与语境。
+164|视觉基础|海报重点不清怎样改善？|明确核心；删减分组；标题层级；对比留白；验证观看顺序。|先定重点，再排层级。
+165|视觉基础|品牌多媒介风格不统一，怎样改善？|建立色彩字体图形影像动效规则；提供模板；分媒介适配。|规则统一，媒介适配。
+166|动画基础|关键帧记录什么？|特定时间的属性状态|关键定状态。|特定时间的属性状态;用户年龄;文件授权;问卷样本
+167|动画基础|插值计算关键帧之间的中间状态。|对|插值方式影响运动。
+168|动画基础|线性插值的属性值通常如何变化？|以恒定变化率变化|空间路径仍可能影响运动观感。|以恒定变化率变化;必然随机;永远不变;只能跳变
+169|动画基础|缓入缓出主要调整什么？|开始与结束阶段的变化节奏|起止不生硬。|开始与结束阶段的变化节奏;视频容器;画面尺寸;音频声道
+170|动画基础|物体用相同速度节奏最易表现重量差异。|错|重量感需时序、间距、形变配合。
+171|动画基础|Timing与Spacing有何区别？|Timing是持续时间与事件安排；Spacing是连续画面位置变化间距。|多久与每步多远。
+172|动画基础|动作前的小幅反向动作常属于什么？|预备动作|帮助理解即将发生的动作。|预备动作;色彩校正;音频采样;网格排版
+173|动画基础|挤压拉伸可增强弹性与动作表现。|对|程度服务风格与物体特征。
+174|动画基础|主体停下后头发继续摆动，体现什么？|跟随与重叠动作|主体与附属物动作有错位。|跟随与重叠动作;静态排版;色彩分离;视频封装
+175|动画基础|运动模糊增强动感，过强会影响识别。|对|动感与清晰度平衡。
+176|动画基础|循环动画检查什么？|首尾状态、速度连续、节奏、位置跳变、接点。|状态接上，速度接顺。
+177|动画基础|动态图形转场优先服务什么？|信息关系与观看节奏|转场有目的。|信息关系与观看节奏;增加复杂度;随机堆效果;隐藏全部内容
+178|动画基础|音画踩点要求每个动作都在重拍。|错|可结合节拍、乐句与信息节奏。
+179|动画基础|标题动画来不及读，如何修改？|延长停留、简化文字、缩短无效入场、调整字号对比、实速测试。|先读清，再动好。
+180|动画基础|15秒活动动态图形如何安排？|核心信息、开场主题时间地点行动提示、节奏草图、声音、可读性。|吸引、说明、行动。
+181|教学应用|哪个教学目标更便于评价？|独立完成三页可跳转原型|目标要可观察。|了解设计;感受美好;独立完成三页可跳转原型;熟悉一切软件
+182|教学应用|目标、活动与评价应相互对应。|对|教什么、练什么、评什么。
+183|教学应用|知识目标与技能目标有何区别？|知识掌握概念原理关系；技能执行操作完成任务。|知道为何，会做任务。
+184|教学应用|项目式教学的重要特点是什么？|围绕任务或问题组织学习|项目串联学习。|围绕任务或问题组织学习;只记菜单;不需要评价;取消教师指导
+185|教学应用|小组完成作品说明每人掌握全部技能。|错|结合个人过程与独立表现。
+186|教学应用|如何评价交互原型作业？|需求匹配、流程完整、反馈、可读性、规范、测试迭代证据。|需求、流程、反馈、验证。
+187|教学应用|形成性评价主要用于什么？|学习中发现问题并改进|过程评价促改进。|学习中发现问题并改进;只结课排名;替代全部教学;取消反馈
+188|教学应用|总结性评价通常关注阶段结束后的成果。|对|可与形成性评价结合。
+189|教学应用|评价量规有什么作用？|明确维度与等级；解释要求；提高一致性；支持反馈。|评什么、分几档、差在哪。
+190|教学应用|学生操作熟练却不能解决问题，如何指导？|回到用户任务、检查需求、用户试用、定位障碍、迭代并说明理由。|从会操作走向能解决。
+191|教学应用|基础差异大的实践课如何安排？|诊断起点、共同基础任务、分层拓展、操作支持、个别指导与反馈。|共同底线，分层提高。
+192|教学应用|教师演示越快学习效率一定越高。|错|拆解、解释、练习、检查。
+193|教学应用|实践课为什么记录过程？|了解思路迭代、发现困难、评价贡献、反思，不只看成品。|结果与过程都要看。
+194|教学应用|使用网络图片首先关注什么？|来源与许可条件|使用要核对授权。|来源与许可条件;搜索排名;下载方便;没有水印
+195|教学应用|没有水印就可任意使用图片。|错|无水印不等于有许可。
+196|教学应用|评价学生AI设计作品关注什么？|任务理解、设计决策、使用记录、人工修改、验证、课程规定与披露。|过程、判断、验证。
+197|教学应用|小组成员贡献不均如何评价？|明确分工、过程记录、自评互评、个人成果、问答、透明规则。|分工清楚，证据评分。
+198|教学应用|如何设计AR展品放置实践课？|目标、设备空间、演示识别放置、练习、检查比例位置反馈、交流评价。|识别、放置、交互、检验。
+199|教学应用|校园短视频评价维度有哪些？|主题、脚本、视听质量、节奏、字幕、素材合规、协作。|内容、视听、规范、协作。
+200|教学应用|如何培养数字媒体学生实践能力？|岗位定能力、项目串联理论技术、递进任务、真实反馈、过程成果评价、反思改进。|岗位、项目、评价、改进。
+F001|Figma|重复按钮希望统一维护，优先使用什么？|组件与实例|重复结构做组件。|组件与实例;独立矩形;截图;栅格化图片
+F002|Figma|实例与主组件完全没有关联。|错|实例保留组件关联。
+F003|Figma|修改一个按钮实例文字，通常影响什么？|只调整该实例|局部覆盖不等于修改主组件。|所有实例;只调整该实例;删除主组件;发布组件库
+F004|Figma|修改主组件一定强制清除全部实例覆盖。|错|覆盖可能保留，取决于改动与结构。
+F005|Figma|主组件与实例有什么关系？|主组件定义复用结构；实例引用；可局部覆盖；主组件更新可影响实例。|主件定规则，实例做应用。
+F006|Figma|Detach instance主要作用是什么？|解除当前实例与主组件关联|分离后失去组件关联。|解除当前实例与主组件关联;发布组件库;添加变量;导出视频
+F007|Figma|改实例文字必须先分离。|错|直接覆盖或使用文字属性。
+F008|Figma|多个按钮不一致怎么整理？|归纳共性、建立组件、定义状态属性、用实例替换、检查覆盖。|共性、组件、实例。
+F009|Figma|管理Small、Medium、Large适合什么？|Size变体属性|尺寸是变体维度。|Size变体属性;音轨;导出倍率;图片滤镜
+F010|Figma|相关变体通常组织在哪里？|Component set|组件集组织变体。|Component set;音频文件;导出切片;评论线程
+F011|Figma|尺寸与状态可以是两个变体属性。|对|例如Size和State。
+F012|Figma|开放按钮标题编辑用什么属性？|Text|文字用Text。|Text;Boolean;Instance swap;导出属性
+F013|Figma|控制按钮图标显示隐藏用什么属性？|Boolean|显隐用Boolean。|Text;Boolean;Instance swap;描边对齐
+F014|Figma|搜索图标替换为下载图标用什么属性？|Instance swap|更换嵌套实例。|Instance swap;Text;导出格式;页面背景
+F015|Figma|Boolean可自动将搜索图标换成下载图标。|错|显隐与替换不同。
+F016|Figma|每种按钮文案都要独立变体。|错|文案通常用文字属性。
+F017|Figma|为什么不把所有差异都做成变体？|组合膨胀、维护复杂、选择困难；文字显隐替换可用其他属性。|规格做变体，内容用属性。
+F018|Figma|3尺寸×2类型×4状态全部组合多少个？|24|3×2×4；实际只需有意义的组合。|9;12;24;32
+F019|Figma|暴露嵌套实例属性有什么价值？|在外层面板配置内部组件，减少图层查找，方便使用。|外层面板，配置内部。
+F020|Figma|按钮标题、显隐、换图标、尺寸分别用什么？|Text、Boolean、Instance swap、Variant。|字、显、换、规格。
+F021|Figma|集中维护品牌主色用什么？|颜色变量|统一绑定便于维护。|颜色变量;每次手输;截图取色;删除颜色
+F022|Figma|变量只能存储颜色。|错|还有数字、字符串、布尔值。
+F023|Figma|管理8、16、24间距用什么类型？|Number|绑定到支持数字的属性。|Number;Color;视频;音频
+F024|Figma|Collection主要做什么？|组织变量及其模式|集合装变量，模式分取值。|组织变量及其模式;替代所有组件;导出影片;用户访谈
+F025|Figma|同一背景变量浅深主题取不同值用什么？|Modes|主题是模式的常见用途。|Modes;分离实例;栅格化;图层锁定
+F026|Figma|定义Light和Dark就自动跟随所有设备系统主题。|错|模式定义不等于已配置系统联动。
+F027|Figma|Alias主要做什么？|引用另一个变量|别名连变量。|引用另一个变量;删除全部变量;分离组件;创建蒙版
+F028|Figma|被引用变量更新后相关绑定可能随之更新。|对|取值还与模式及引用关系有关。
+F029|Figma|基础变量与语义变量有什么区别？|基础描述原始值如blue/600；语义描述用途如text/primary，可引用基础变量。|基础是什么，语义做什么。
+F030|Figma|正文主色适合绑定什么名称？|text/primary|名称表达用途。|text/primary;随便一个蓝;临时颜色123;未命名副本
+F031|Figma|变量重命名一定改变其值。|错|名称与取值不同。
+F032|Figma|深色模式部分文字不变怎么查？|变量绑定、硬编码、集合模式、局部模式覆盖、实例覆盖。|绑定、模式、覆盖。
+F033|Figma|按钮随文字长度变宽，优先用什么？|水平方向Hug contents|配合合理内边距。|水平方向Hug contents;固定截图;锁定图层;两倍导出
+F034|Figma|输入框占父级可用宽度，通常用什么？|Fill container|需支持相应父子布局关系。|Fill container;字体转轮廓;隐藏图层;图片裁剪
+F035|Figma|Gap与Padding含义相同。|错|Gap是子项间距，Padding是容器内边距。
+F036|Figma|Hug、Fill、Fixed如何区分？|Hug随内容；Fill占可分配空间；Fixed保持指定尺寸。|内容、父级、设定。
+F037|Figma|隐藏图标后还有异常空白怎么查？|正确隐藏图层、占位容器、Padding、Gap、固定宽度与对齐。|占位、间距、尺寸。
+F038|Figma|组件属性与变量有何区别？|组件属性开放实例配置入口；变量集中管理复用值和模式取值；可配合使用。|属性管怎么配，变量管值来源。
+F039|Figma|刷题答案选项组件如何组织？|变体管理状态；文字属性管内容；布尔管图标显隐；变量管颜色；自动布局适应换行。|状态、内容、取值、布局。
+F040|Figma|如何制作支持主题切换的按钮组件？|建立Light/Dark变量；绑定语义色；自动布局；开放属性；建立尺寸状态；测试长文案和主题。|变量、布局、组件、验证。`;
+</script><script id="embedded-bank" type="application/json">null</script><script>
 'use strict';
 const screenshotText=`S1-01|视觉基础|色彩的纯度指什么？|颜色的鲜艳程度|纯度看鲜艳，明度看明暗。|颜色的亮度;颜色的鲜艳程度;颜色的冷暖倾向;颜色的深浅变化
 S1-02|视觉基础|粗直线给人的常见感觉是什么？|阳刚有力|形式语言的常见联想，仍受语境影响。|纤细敏感;阳刚有力;柔和动感;不安定
@@ -92,6 +339,8 @@ S2-P02|设计实践|校园小组作业故事：至少6镜，每镜写景别、�
 const embedded=JSON.parse(document.getElementById('embedded-bank').textContent);
 function parseRows(text,original){return text.trim().split('\n').map(line=>{const [id,c,q,a,e='',opts='']=line.split('|');if(!id||!q||!a)throw Error('题库行损坏');const pending=a==='?';const options=opts?opts.split(';'):!pending&&(a==='对'||a==='错')?['对','错']:[];if(options.length&&!pending&&!options.includes(a))throw Error('答案不在选项中：'+id);return{id,c,q,a,e,options,pending,source:original?'original':id.startsWith('S1')?'shot1':'shot2',type:options.length?(a==='对'||a==='错'?'tf':'mc'):'recall'};});}
 let bank=[];try{bank=embedded||[...parseRows(window.bankText,true),...parseRows(screenshotText,false)];if(bank.length!==326||new Set(bank.map(q=>q.id)).size!==bank.length)throw Error('题目数量或编号校验失败');}catch(e){document.getElementById('card').textContent='题库读取失败：'+e.message;throw e;}
+function shuffleQuestions(items){for(let i=items.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[items[i],items[j]]=[items[j],items[i]];}return items;}
+shuffleQuestions(bank);
 const KEY='zhilian-bank-v1';const fresh=()=>({version:1,answers:{},reviews:{},saved:[],notes:{}});let state=fresh(),storageError=false;
 function validState(v){if(!v||v.version!==1||!v.answers||!v.reviews||!v.notes||!Array.isArray(v.saved))return false;const map=new Map(bank.map(q=>[q.id,q]));if(v.saved.some(id=>!map.has(id))||new Set(v.saved).size!==v.saved.length)return false;for(const [id,a]of Object.entries(v.answers)){const q=map.get(id);if(!q||q.pending||!q.options.length||!a||!q.options.includes(a.choice)||typeof a.firstCorrect!=='boolean'||a.correct!==(a.choice===q.a))return false;}for(const [id,r]of Object.entries(v.reviews)){const q=map.get(id);if(!q||q.pending||q.options.length||!['known','again'].includes(r))return false;}for(const [id,n]of Object.entries(v.notes))if(!map.has(id)||typeof n!=='string'||n.length>20000)return false;return true;}
 try{const raw=localStorage.getItem(KEY);if(raw){const v=JSON.parse(raw);if(validState(v))state=v;else storageError=true;}}catch(e){storageError=true;}
@@ -103,7 +352,7 @@ const base=()=>bank.filter(q=>(category==='all'||q.c===category)&&(source==='all
 function filtered(){let arr=base();if(mode==='pending')return arr.filter(q=>q.pending);arr=arr.filter(q=>!q.pending);if(mode==='wrong')return arr.filter(q=>session?.includes(q.id));if(mode==='saved')return arr.filter(q=>state.saved.includes(q.id));return arr;}
 function resetView(){session=mode==='wrong'?bank.filter(q=>state.answers[q.id]?.correct===false||state.reviews[q.id]==='again').map(q=>q.id):null;current=null;revealed=false;retrying=false;page=0;render();}
 function navigate(id){current=id;revealed=false;retrying=false;render();$('card').scrollIntoView({behavior:'smooth',block:'start'});}
-function render(){const arr=filtered();let at=arr.findIndex(q=>q.id===current);if(at<0){at=0;current=arr[0]?.id||null;revealed=false;retrying=false;}const q=arr[at];const pending=bank.filter(q=>q.pending).length;$('inventory').textContent=bank.length+'条题目记录 · '+(bank.length-pending)+'条可练习 · '+pending+'条待补或待核实 · 本地离线版';$('nav').innerHTML=[['practice','◫ 顺序练习'],['wrong','↻ 错题重练'],['saved','☆ 我的收藏'],['memo','✧ 速记卡片'],['pending','! 待核实题']].map(([k,n])=>'<button data-mode="'+k+'" class="'+(mode===k?'active':'')+'">'+n+'</button>').join('');document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;resetView();});const answers=Object.values(state.answers);$('answered').textContent=answers.length;$('accuracy').textContent=answers.length?Math.round(answers.filter(a=>a.firstCorrect).length/answers.length*100)+'%':'—';$('selfstats').textContent='主观题已自评 '+Object.keys(state.reviews).length+' · 收藏 '+state.saved.length+' · 待重练 '+bank.filter(q=>state.answers[q.id]?.correct===false||state.reviews[q.id]==='again').length;
+function render(){const arr=filtered();let at=arr.findIndex(q=>q.id===current);if(at<0){at=0;current=arr[0]?.id||null;revealed=false;retrying=false;}const q=arr[at];const pending=bank.filter(q=>q.pending).length;$('inventory').textContent=bank.length+'条题目记录 · '+(bank.length-pending)+'条可练习 · '+pending+'条待补或待核实 · 本地离线版';$('nav').innerHTML=[['practice','◫ 随机练习'],['wrong','↻ 错题重练'],['saved','☆ 我的收藏'],['memo','✧ 速记卡片'],['pending','! 待核实题']].map(([k,n])=>'<button data-mode="'+k+'" class="'+(mode===k?'active':'')+'">'+n+'</button>').join('');document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;resetView();});const answers=Object.values(state.answers);$('answered').textContent=answers.length;$('accuracy').textContent=answers.length?Math.round(answers.filter(a=>a.firstCorrect).length/answers.length*100)+'%':'—';$('selfstats').textContent='主观题已自评 '+Object.keys(state.reviews).length+' · 收藏 '+state.saved.length+' · 待重练 '+bank.filter(q=>state.answers[q.id]?.correct===false||state.reviews[q.id]==='again').length;
 const maxPage=Math.max(0,Math.ceil(arr.length/30)-1);page=Math.min(page,maxPage);$('listtitle').textContent='当前列表 '+arr.length+'题';$('numbers').innerHTML=arr.slice(page*30,page*30+30).map(item=>{let a=state.answers[item.id],r=state.reviews[item.id];return'<button data-jump="'+item.id+'" class="'+(item.id===current?'current':a?(a.correct?'yes':'no'):r?(r==='known'?'yes':'no'):'')+'" title="'+esc(item.q)+'">'+esc(item.id)+'</button>';}).join('');document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>navigate(b.dataset.jump));$('pageprev').disabled=page===0;$('pagenext').disabled=page===maxPage;$('pageprev').onclick=()=>{page--;render();};$('pagenext').onclick=()=>{page++;render();};
 if(!q){$('card').innerHTML='<div class="empty"><h2>'+({wrong:'暂时没有需要重练的题',saved:'还没有收藏',pending:'当前筛选没有待核实题'}[mode]||'没有匹配的题目')+'</h2><p>可切换模块、来源或清空搜索。</p></div>';return;}
 const answer=state.answers[q.id],objective=!!q.options.length,show=q.pending||mode==='memo'||revealed||(!retrying&&!!answer),saved=state.saved.includes(q.id);let body='';
@@ -111,7 +360,7 @@ if(q.pending)body='<div class="feedback pending"><b>待补充 / 待核实 · 不
 else if(mode==='memo')body='<div class="memo"><b>✧ 速记</b><br>'+esc(q.e)+'</div><div class="feedback"><b>参考答案</b>\n'+esc(q.a)+'</div>';
 else if(objective){body=q.options.map((o,i)=>'<button class="option '+(show?(o===q.a?'good':answer?.choice===o?'bad':''):'')+'" data-choice="'+i+'" '+(show?'disabled':'')+'><b>'+String.fromCharCode(65+i)+'</b><span>'+esc(o)+(show&&o===q.a?' ✓ 正确答案':show&&answer?.choice===o?' ✕ 你的选择':'')+'</span></button>').join('');if(show)body+='<div class="feedback" role="status"><b>'+(answer?.correct?'✓ 回答正确':'✕ 回答错误')+'</b>\n正确答案：'+esc(q.a)+'\n'+esc(q.e)+'</div><div class="memo"><b>✧ 速记考点</b><br>'+esc(q.e)+'</div><button class="btn" id="retry" style="margin-top:14px">重新作答</button>';}
 else{body='<label for="draft" class="muted">先回忆或写下要点（自动保存）</label><textarea id="draft" placeholder="输入你的答题要点…">'+esc(state.notes[q.id]||'')+'</textarea>'+(show?'<div class="feedback" role="status"><b>参考答案 / 得分点</b>\n'+esc(q.a)+'</div><div class="memo"><b>✧ 速记</b><br>'+esc(q.e)+'</div><div class="actions"><button class="btn" id="again">还需复习'+(state.reviews[q.id]==='again'?' ✓':'')+'</button><button class="btn primary" id="known">已经掌握'+(state.reviews[q.id]==='known'?' ✓':'')+'</button></div>':'<button class="btn primary" id="reveal" style="margin-top:15px">查看参考答案</button>');}
-$('card').innerHTML='<div class="top"><span class="tag">'+esc(q.c)+' · '+(q.pending?'待核实':q.type==='mc'?'单选':q.type==='tf'?'判断':'回忆 / 简答')+'</span><button class="btn" id="star">'+(saved?'★ 已收藏':'☆ 收藏')+'</button></div><div class="muted" style="margin-top:18px">'+esc(q.id)+' · 第'+(at+1)+' / '+arr.length+'题 · '+esc(sourceLabel(q.source))+'</div><h2>'+esc(q.q)+'</h2>'+body+(show?'<div class="actions"><button class="btn" id="prev" '+(at===0?'disabled':'')+'>← 上一题</button><button class="btn primary" id="next" '+(at===arr.length-1?'disabled':'')+'>下一题 →</button></div>':'')+'<details><summary>题目说明</summary><div class="foot">'+(q.source==='original'?'根据岗位范围编写的原创模拟题，非官方真题。':'根据用户截图整理的参考题；部分题干与选项作清晰化改写，未获得原标准答案。')+'</div></details>';
+$('card').innerHTML='<div class="top"><span class="tag">'+esc(q.c)+' · '+(q.pending?'待核实':q.type==='mc'?'单选':q.type==='tf'?'判断':'回忆 / 简答')+'</span><button class="btn" id="star">'+(saved?'★ 已收藏':'☆ 收藏')+'</button></div><div class="muted" style="margin-top:18px">'+esc(q.id)+' · 第'+(at+1)+' / '+arr.length+'题 · '+esc(sourceLabel(q.source))+'</div><h2>'+esc(q.q)+'</h2>'+body+(show?'<div class="actions question-nav" aria-label="题目翻页"><button class="btn" id="prev" '+(at===0?'disabled':'')+'>← 上一题</button><button class="btn primary" id="next" '+(at===arr.length-1?'disabled':'')+'>下一题 →</button></div>':'')+'<details><summary>题目说明</summary><div class="foot">'+(q.source==='original'?'根据岗位范围编写的原创模拟题，非官方真题。':'根据用户截图整理的参考题；部分题干与选项作清晰化改写，未获得原标准答案。')+'</div></details>';
 $('star').onclick=()=>{state.saved=saved?state.saved.filter(id=>id!==q.id):[...state.saved,q.id];persist();render();};document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{if(show)return;const choice=q.options[Number(b.dataset.choice)],correct=choice===q.a;state.answers[q.id]={choice,correct,firstCorrect:answer?answer.firstCorrect:correct};revealed=true;retrying=false;persist();render();});if($('retry'))$('retry').onclick=()=>{retrying=true;revealed=false;render();};if($('draft'))$('draft').oninput=e=>{state.notes[q.id]=e.target.value;persist();};if($('reveal'))$('reveal').onclick=()=>{revealed=true;render();};for(const [id,value]of [['again','again'],['known','known']])if($(id))$(id).onclick=()=>{state.reviews[q.id]=value;persist();render();};if($('prev'))$('prev').onclick=()=>navigate(arr[at-1].id);if($('next'))$('next').onclick=()=>navigate(arr[at+1].id);
 }
 for(const c of [...new Set(bank.map(q=>q.c))]){const o=document.createElement('option');o.value=c;o.textContent=c;$('category').append(o);}$('category').onchange=e=>{category=e.target.value;resetView();};$('source').onchange=e=>{source=e.target.value;resetView();};$('type').onchange=e=>{type=e.target.value;resetView();};$('search').oninput=e=>{query=e.target.value.trim();resetView();};
@@ -120,3 +369,4 @@ $('export').onclick=()=>download('知练-学习记录-'+new Date().toISOString()
 $('download').onclick=()=>{const doc=document.documentElement.cloneNode(true);doc.querySelector('#external-bank')?.remove();doc.querySelector('#embedded-bank').textContent=JSON.stringify(bank).replace(/</g,'\\u003c');doc.querySelector('#card').textContent='正在加载本地题库…';doc.querySelector('#nav').replaceChildren();doc.querySelector('#numbers').replaceChildren();doc.querySelector('#category').innerHTML='<option value="all">全部知识模块</option>';doc.querySelector('#search').setAttribute('value','');doc.querySelector('#file').removeAttribute('value');doc.querySelectorAll('select').forEach(el=>el.querySelectorAll('option').forEach(o=>o.removeAttribute('selected')));doc.querySelector('#storageWarning').hidden=true;doc.querySelector('#inventory').textContent='离线题库';doc.querySelector('#answered').textContent='0';doc.querySelector('#accuracy').textContent='—';doc.querySelector('#selfstats').textContent='';doc.querySelectorAll('.toast').forEach(n=>n.remove());download('知练-数字媒体离线题库.html','<!doctype html>\n'+doc.outerHTML,'text/html;charset=utf-8');toast('已生成单文件离线版，不包含你的答题记录；记录请另行导出。');};
 if(storageError){$('storageWarning').hidden=false;$('storageWarning').textContent='本地记录不可用或格式异常。请使用导出记录备份；本次可继续练习。';}render();
 </script></body></html>
+
