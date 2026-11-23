@@ -1,0 +1,122 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><meta name="theme-color" content="#385edb"><title>知练 · 数字媒体备考</title><style>
+*{box-sizing:border-box}body{margin:0;background:#f5f6fa;color:#253149;font:15px/1.65 -apple-system,BlinkMacSystemFont,'PingFang SC',sans-serif}button,input,select,textarea{font:inherit}button{cursor:pointer}button:disabled{opacity:.4;cursor:default}button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #9db5ff;outline-offset:2px}header{background:white;border-bottom:1px solid #e4e8f0;padding:20px max(20px,calc((100vw - 1200px)/2));display:flex;justify-content:space-between;gap:15px;align-items:center}.brand{font-size:25px;font-weight:850;color:#385edb}.muted{color:#7b8699;font-size:13px}main{max-width:1240px;margin:auto;padding:28px 20px}h1{font-size:28px;margin:5px 0}h2{font-size:23px;line-height:1.7;margin:22px 0}h3{font-size:16px;margin:0 0 12px}.intro{margin-bottom:22px}.grid{display:grid;grid-template-columns:180px minmax(0,1fr) 225px;gap:20px;align-items:start}.panel{background:white;border:1px solid #e4e8f0;border-radius:17px;padding:23px}nav button{display:block;width:100%;text-align:left;margin:5px 0;padding:12px;border:0;background:white;color:#67748a;border-radius:9px}nav button.active{background:#eef2ff;color:#385edb;font-weight:600}.filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:19px}select,input[type=search]{border:1px solid #dce3ed;border-radius:8px;background:white;padding:9px;min-width:0}input[type=search]{width:100%}.filters select{flex:1;max-width:100%}.tag{display:inline-block;background:#eef2ff;color:#4264c9;padding:5px 9px;border-radius:6px;font-size:12px}.top{display:flex;justify-content:space-between;gap:10px;align-items:center}.btn{border:1px solid #dce3ed;border-radius:9px;background:white;color:#53627a;padding:10px 14px}.primary{background:#385edb;color:white;border-color:#385edb}.option{display:flex;align-items:start;gap:14px;width:100%;text-align:left;border:1px solid #dce3ed;border-radius:11px;background:white;padding:15px;margin:10px 0;color:#35435b}.option b{background:#f0f3f8;padding:1px 8px;border-radius:5px}.option.good{border-color:#329b75;background:#edf9f2}.option.bad{border-color:#ce7171;background:#fff0ef}.option:disabled{opacity:1}.feedback{background:#f0f4fd;border-radius:11px;padding:18px;margin-top:19px;line-height:1.9;white-space:pre-line;overflow-wrap:anywhere}.memo{background:#fff6e2;border-radius:11px;padding:17px;margin-top:13px}.actions{display:flex;justify-content:space-between;gap:10px;margin-top:22px}.stats{display:flex;gap:25px;margin:20px 0}.stats b{display:block;font-size:28px}.list{display:grid;grid-template-columns:repeat(5,1fr);gap:7px;margin-top:15px}.list button{background:#f0f3f8;border:0;border-radius:6px;padding:8px 1px;font-size:12px;color:#5f6e87}.list .current{background:#385edb;color:white}.list .yes{background:#e0f3e9;color:#25815c}.list .no{background:#fce8e8;color:#ac5656}.foot{margin-top:20px;font-size:12px;color:#8b95a7;line-height:1.9}.tools button{margin:6px 3px 0 0}.empty{text-align:center;padding:40px 10px;color:#7b8699}textarea{width:100%;min-height:125px;padding:13px;border:1px solid #dce3ed;border-radius:10px;resize:vertical}.notice{padding:12px 15px;border-radius:10px;background:#fff6df;margin-bottom:18px;font-size:13px}.pending{border-left:3px solid #e0af4a;padding-left:14px}details{margin-top:15px}summary{cursor:pointer;color:#63728d}a{color:#385edb}.toast{position:fixed;bottom:25px;left:50%;transform:translateX(-50%);background:#26334d;color:white;padding:12px 20px;border-radius:10px;z-index:10;max-width:90vw}hr{border:0;border-top:1px solid #edf0f5;margin:20px 0}@media(max-width:1050px){.grid{grid-template-columns:155px minmax(0,1fr)}aside{grid-column:2}.list{grid-template-columns:repeat(10,1fr)}}@media(max-width:650px){header{padding:16px}.brand{font-size:22px}main{padding:18px 13px}.grid{display:block}.panel{padding:19px}nav.panel{display:flex;overflow:auto;padding:6px;margin-bottom:13px}nav button{white-space:nowrap;text-align:center;width:auto;flex:none;margin:0;padding:10px 12px}aside{margin-top:14px}h1{font-size:24px}h2{font-size:20px}header .muted{display:none}.list{grid-template-columns:repeat(6,1fr)}.actions .btn{flex:1}.filters{gap:7px}.top{align-items:start}.option{padding:14px 12px}}
+</style></head><body><header><div class="brand">▣ 知练 <span class="muted">数字媒体教师招聘备考</span></div><button class="btn primary" id="download">下载离线单文件</button></header><main><div class="intro"><h1>每道题，都多记住一点。</h1><div class="muted" id="inventory"></div></div><div id="storageWarning" class="notice" hidden></div><div class="grid"><nav class="panel" id="nav"></nav><div><div class="filters"><input type="search" id="search" placeholder="搜索题目、答案或考点" aria-label="搜索题库"><select id="category" aria-label="知识模块"><option value="all">全部知识模块</option></select><select id="source" aria-label="题目来源"><option value="all">全部来源</option><option value="original">原创模拟</option><option value="shot1">截图第一批</option><option value="shot2">截图第二批</option></select><select id="type" aria-label="题目类型"><option value="all">全部题型</option><option value="mc">单选题</option><option value="tf">判断题</option><option value="recall">背诵 / 简答 / 实操</option></select></div><section class="panel" id="card" aria-label="答题区域"></section></div><aside><section class="panel"><h3>学习记录</h3><div class="stats"><div><b id="answered">0</b><span class="muted">客观已答</span></div><div><b id="accuracy">—</b><span class="muted">首次正确率</span></div></div><div class="muted" id="selfstats"></div><hr><h3 id="listtitle">当前题目</h3><div class="list" id="numbers"></div><div class="actions"><button class="btn" id="pageprev">前页</button><button class="btn" id="pagenext">后页</button></div><div class="foot">点选即判分。简答题展示参考要点后自评；待核实题不计分。</div></section><section class="panel tools" style="margin-top:15px"><h3>备份与迁移</h3><button class="btn" id="export">导出记录</button><button class="btn" id="import">导入记录</button><input type="file" id="file" accept="application/json,.json" hidden><details><summary>来源与使用说明</summary><div class="foot">原创题为模拟练习，非官方考纲或真题。截图题出处及原答案未提供；已标记疑义。部分选择题保留考点并改作回忆卡。学习数据仅存当前浏览器；跨设备请导出、导入。离线文件不含账号同步。iPhone/iPad建议在Safari中以网页方式打开；“文件”快速预览可能不执行交互脚本。本文件不等于已安装的PWA。</div></details></section></aside></div><div class="foot">Figma参考：<a href="https://help.figma.com/hc/en-us/articles/5579474826519-Explore-component-properties">组件属性</a> · <a href="https://help.figma.com/hc/en-us/articles/15145852043927-Create-and-manage-variables-and-collections">变量</a> · <a href="https://help.figma.com/hc/en-us/articles/31351261703063-FD4B-Auto-layout-fundamentals">自动布局</a>。资料链接需联网，刷题本身无需联网。</div></main>
+<script id="external-bank" src="zhilian-bank.js"></script><script id="embedded-bank" type="application/json">null</script><script>
+'use strict';
+const screenshotText=`S1-01|视觉基础|色彩的纯度指什么？|颜色的鲜艳程度|纯度看鲜艳，明度看明暗。|颜色的亮度;颜色的鲜艳程度;颜色的冷暖倾向;颜色的深浅变化
+S1-02|视觉基础|粗直线给人的常见感觉是什么？|阳刚有力|形式语言的常见联想，仍受语境影响。|纤细敏感;阳刚有力;柔和动感;不安定
+S1-03|视觉基础|黄金分割的比例约为什么？|1∶1.618|比例方向需明确，小段比大段约为此值。|1∶1.414;1∶1.618;1∶2;1∶3
+S1-04|UI/UX|UI设计在本组选项中包括什么？|人机交互、操作逻辑、界面美观|按原题选项理解，UI与UX不完全相同。|人机交互、操作逻辑、界面美观;代码编写、数据库设计;硬件配置、网络连接;营销推广、用户增长
+S1-05|UI/UX|哪项不是按功能分类的界面图标？|扁平图标|扁平描述风格。|启动图标;应用图标;扁平图标;功能图标
+S1-06|UI/UX|高保真原型主要用于什么？|展示接近最终产品的效果|接近成品不等于已验证需求。|展示接近最终产品的效果;快速构思;数据库设计;代码编写
+S1-07|视觉基础|位图图像的基本组成单位是什么？|像素|位图看像素。|像素;矢量;路径;图层
+S1-08|软件操作|哪项不是Photoshop工具？|SQL查询工具|SQL用于数据库。|裁剪工具;修复画笔工具;SQL查询工具;仿制图章工具
+S1-09|视觉基础|标志最基本的特征是什么？|识别性|先识别，再谈表现。|美观性;识别性;装饰性;复杂性
+S1-10|设计史与艺术概论|标志设计“反衬”手法源于哪里？|?|原题可能预期中国剪纸，但“源于”的历史断言未核实。|西方油画;中国剪纸;日本浮世绘;非洲木雕
+S1-11|动画基础|动画运动最基本的三大规律是什么？|?|原题可能预期弹性、惯性、曲线运动；教材归纳不统一，待原答案。
+S1-12|设计史与艺术概论|现代设计兴起与哪一事件密切相关？|工业革命|原题为“出现的标志”，此处改写为较严谨表述。|工业革命;文艺复兴;中世纪;史前时期
+S1-13|设计史与艺术概论|帕特农神庙外围列柱主要采用什么柱式？|多立克式|原题“帕提依”疑为笔误；建筑另有爱奥尼亚元素。|科林斯式;爱奥尼亚式;多立克式;混合式
+S1-14|设计史与艺术概论|红屋与哪场设计运动兴起密切相关？|工艺美术运动|红屋与莫里斯关联。|装饰艺术运动;工艺美术运动;包豪斯;国际主义风格
+S1-15|设计史与艺术概论|按常见教材，早期原创动画明星是哪一个？|恐龙葛蒂|不是说它是世界第一部动画片。|米老鼠;菲利克斯猫;恐龙葛蒂;大力水手
+S1-16|设计史与艺术概论|中国传统建筑的主流结构是什么？|木结构|概括主流，不指所有建筑。|石结构;木结构;混凝土结构;钢结构
+S1-17|设计史与艺术概论|艺术起源巫术说的代表是谁？|泰勒|泰勒、弗雷泽与巫术说有关。|泰勒;普列汉诺夫;席勒;亚里士多德
+S1-18|视觉基础|按原题分类，哪项不是常见图形同构手法？|色彩同构|共生、正负、置换是常见手法。|共生同构;正负同构;置换同构;色彩同构
+S1-19|设计史与艺术概论|宋代女服中常见代表性服装是什么？|褙子|宋代女服记褙子。|襦;褙子;裙;帔帛
+S1-20|UI/UX|以下哪一项不是产品设计中的设计思维？|?|用户中心、快速原型、情境模拟、用户体验分属理念方法目标，分类依据不足。
+S1-J01|设计史与艺术概论|我国最早的商标出现在宋代。|?|“最早商标”与“现存较早商标实物”不同，待核实。
+S1-J02|视觉基础|点的面积越小，面的感觉越强。|错|一般点扩大后更易有面的感觉，还看画面比例。
+S1-J03|视觉基础|展览空间动线应该单一重复。|错|动线服务内容、空间和观众。
+S1-J04|动画基础|动物尾巴摆动通常呈现……|?|水印遮挡关键文字，需补图。
+S1-J05|视觉基础|布局合理化建议出现横向……|?|水印遮挡后半题干，需补图。
+S1-J06|设计史与艺术概论|应县木塔是我国现存最古老、最高大的纯木结构楼阁式建筑。|?|已有参考倾向为对，但最高最古老等表述待权威来源核对。
+S1-J07|视觉基础|RGB模式适用于印刷输出。|错|按基础考试语境，印刷常用CMYK流程；RGB文件也可经转换进入流程。
+S1-J08|软件操作|3ds Max调整透明材质最好打开材质编辑器Background按钮。|?|依赖具体版本与编辑器，待核实。
+S1-J09|视觉基础|一点透视只有一个主要纵深方向的消失点。|对|根据原题补充基础定义限定，不泛指所有任意方向。
+S1-J10|设计史与艺术概论|蝙蝠在传统文化中只有负面象征。|错|蝠谐音福，可作吉祥图案。
+S1-N01|设计史与艺术概论|名词解释：工艺美术运动。|19世纪后期英国设计改革运动；莫里斯；重视手工艺与材料；批评粗劣工业设计；艺术结合生活。|英国、莫里斯、手工、生活。
+S1-N02|视觉基础|名词解释：蒙赛尔色立体。|按色相、明度、彩度组织颜色；周向色相，纵向明度，向外彩度增加。|绕圈色相，上下明度，向外彩度。
+S1-N03|UI/UX|名词解释：界面设计。|设计人和系统的信息与操作界面，包括布局文字图标颜色控件状态反馈，支持用户完成任务。|看懂、找到、操作、结果。
+S1-N04|视觉基础|名词解释：矢量图。|用数学方式描述点线曲线形状，适合缩放与路径编辑，用于标志图标等。|数学描述，缩放清晰。
+S1-Q01|设计史与艺术概论|简述艺术起源主要学说与理论价值。|模仿、游戏、表现、巫术、劳动说；分别从认识心理情感仪式与实践解释发生；多视角有价值但单因解释有限。|模、游、表、巫、劳。
+S1-Q02|视觉基础|简述汉字宋体特点。|横细竖粗、方正规整、有衬线；横画末端常有三角装饰；正文使用仍看字号与设备。|横细竖粗，方正有衬。
+S1-P01|设计实践|为“绿源”有机食品公司设计标志，含名称、适配包装网站，并写约500字说明。|体现有机健康自然；名称清晰；图形简洁独特；字图协调；测试小尺寸单色；说明定位创意造型色彩应用。|定位、创意、图形、色彩、应用。
+S2-01|摄影视频|帧率的单位是什么？|fps|原图选项遮挡，改为回忆卡；每秒帧数。
+S2-02|设计史与艺术概论|中国第一部水墨动画片是什么？|小蝌蚪找妈妈|1960年作品。|舒振东华文打字机;小蝌蚪找妈妈;铁扇公主;大闹画室
+S2-03|软件操作|Photoshop图层蒙版中灰色通常表示什么？|半透明显示|黑藏白显灰半透。|完全显示;完全隐藏;半透明显示;删除像素
+S2-04|软件操作|Maya从某面拉出新几何体用什么？|Extrude挤出|挤出延伸，倒角修边。|Bevel倒角;Extrude挤出;Bridge桥接;Merge合并
+S2-05|设计史与艺术概论|哪部作品不是安迪·沃霍尔代表作？|是什么使今日的家庭如此不同，如此具有魅力？|该作作者为理查德·汉密尔顿。|玛丽莲·梦露;绿色可口可乐瓶;是什么使今日的家庭如此不同，如此具有魅力？;坎贝尔汤罐头
+S2-06|视觉基础|发射构成的核心是什么？|围绕中心点散开或集中|抓住中心与方向。|随机分布;围绕中心点散开或集中;大小渐变;色彩交替
+S2-07|设计史与艺术概论|牛顿首次棱镜实验发现光谱的常见教材年份是什么？|1666年|区分实验与发表时间。|1665年;1672年;1687年;1666年
+S2-08|设计史与艺术概论|工艺美术运动的实践者和宣传者是谁？|威廉·莫里斯|莫里斯与工艺美术运动。|威廉·莫里斯;古斯塔夫·埃菲尔;约翰·拉斯金;吕彦直
+S2-09|视觉基础|PPI表示什么？|每英寸像素数量|P是Pixel像素。|物理尺寸;每英寸像素数量;系统版本;色彩范围
+S2-10|视觉基础|给定选项中透明背景简单动画Logo适合什么格式？|GIF|支持简单透明而非完整半透明。|JPEG;GIF;BMP;PDF
+S2-11|视觉基础|印刷常用减色模式是什么？|CMYK|色料减色，不是色光减色。|RGB;HSB;Lab;CMYK
+S2-12|摄影视频|传统DVD及早期HDTV常用哪种编码？|MPEG-2|历史语境，不是所有HDTV都仅用此编码。|MPEG-1;MPEG-2;MPEG-4;AVI
+S2-13|摄影视频|哪种焦距最能突出主体虚化背景？|?|只见28mm与50mm，其余选项缺失；还需限定光圈距离画幅构图。
+S2-29|软件操作|Premiere不改变片段时长位置，仅调整素材入出点，应使用什么工具？|?|正确概念是Slip内滑；原选项只有外滑等，疑缺正确选项，暂不判分。
+S2-30|软件操作|AE主要制作矢量图形的图层类型是什么？|形状层|形状层承载矢量图形。|素材层;文字层;形状层;固态层
+S2-31|软件操作|AE遮罩的核心作用是什么？|控制图层局部可见范围|原C最接近，但限制效果范围还需相应设置。|改变图层颜色;添加运动模糊;控制图层局部可见范围;提高渲染速度
+S2-32|软件操作|AE复杂效果相关题（题干被遮挡）。|?|仅能看见碎片、CC Particle World、第三方插件、逐帧手绘等选项，需补图。
+S2-33|视觉基础|成角透视有几个主要灭点？|2个|一点平行，两点成角。|1个;2个;3个;无灭点
+S2-34|视觉基础|现代减色模型的色料三原色是什么？|品红、青、黄|与传统绘画红黄蓝表述区分。|红绿蓝;品红、青、黄;红黄蓝;品红绿青
+S2-35|视觉基础|常见色立体中心纵轴表示什么？|明度|上下明暗变化。|色相;明度;纯度;饱和度
+S2-36|视觉基础|色相环互补色相隔多少度？|180°|环上相对。|60°;90°;120°;180°
+S2-37|设计史与艺术概论|包豪斯宣言封面三颗星通常代表什么？|建筑、雕塑、绘画|三艺结合。|建筑、雕塑、绘画;艺术、技术、教育;功能、形式、材料;德国、荷兰、俄国
+S2-38|设计史与艺术概论|索特萨斯创立的设计小组是什么？|孟菲斯小组|索特萨斯记孟菲斯。|包豪斯;孟菲斯小组;波普小组;国际风格小组
+S2-39|UI/UX|原题“心理原型”最接近哪种描述？|使用者基于经验形成的心理模型|术语应核对；此处按原题预期理解。|产品物理模型;使用者基于经验形成的心理模型;设计草图;购买记录
+S2-40|视觉基础|企业识别系统CI由什么组成？|MI、BI、VI|理念、行为、视觉。|AI、BI、CI;MI、PI、VI;MI、BI、VI;只有VI
+S2-T01|视觉基础|形式美法则：对比调和、对称均衡、____、节奏韵律、变化统一。|?|可能为比例尺度，教材分类不统一，待原答案。
+S2-T02|音频基础|频率低于20Hz的声音称为什么？|次声或次声波|低频次声。
+S2-T03|音频基础|保存数字高保真音乐的常见格式有哪些？|WAV、FLAC等。|原题填空可能预期WAV，但不唯一，改回忆卡。
+S2-T04|设计史与艺术概论|列举俄国构成主义代表人物。|塔特林、罗德琴科等。|不应将开放答案限制为唯一人物。
+S2-T05|视觉基础|平面构成最基本要素是什么？|点、线、面。|点线面。
+S2-J01|摄影视频|空镜头可用于外化人物内心情感。|对|原题“通常会使用”改为可用于，并非必要条件。
+S2-J02|视觉基础|色料混合种类越多，颜色越明亮。|错|一般可能趋灰暗，还看颜料与比例。
+S2-J03|设计史与艺术概论|包豪斯主张设计为精英服务。|错|重视社会生活与生产。
+S2-J04|UI/UX|感觉与知觉是同一概念可互换。|错|感觉偏个别属性，知觉偏整体组织解释。
+S2-J05|UI/UX|dp用于iOS，pt用于Android。|错|平台常用逻辑单位对应反了。
+S2-J06|视觉基础|GIF支持有损压缩与动画，不支持透明。|错|压缩本身无损；支持动画与简单透明；转有限调色板可丢颜色。
+S2-J07|摄影视频|长镜头在叙事上体现导演自我消除。|?|理论概括有争议，长镜头也可有强烈调度表达。
+S2-J08|引擎与三维|Unity与Unreal都可用于VR开发。|对|不只用于VR。
+S2-J09|软件操作|Photoshop是矢量软件，图像放大不会失真。|错|主要面向位图，虽支持部分矢量功能。
+S2-J10|设计史与艺术概论|“白兔儿为记”是世界最早的商标。|?|最早商标与现存早期实物需区分，待权威依据。
+S2-N01|设计史与艺术概论|名词解释：数字媒体艺术。|以数字技术创作呈现传播的艺术设计实践，融合图像声音动画影像交互。|数字技术、多种媒介、艺术表达。
+S2-N02|摄影视频|名词解释：蒙太奇。|选择排列组合镜头，组织时空并形成叙事节奏情绪意义；组合可产生单镜头之外含义。|镜头组合，产生意义。
+S2-N03|设计史与艺术概论|名词解释：交互艺术。|参与者行为纳入作品运行，输入感知反馈让参与者影响作品状态或体验。|参与有作用，作品有回应。
+S2-Q01|摄影视频|空镜头的概念特征功能是什么？|通常不以人物为主要主体，以环境景物物件为主；通过构图光影声音时长表达；交代环境、营造情绪、象征、转场与节奏。|环境、情绪、时空、节奏。
+S2-Q02|视觉基础|常用图像格式及特点是什么？|JPEG照片有损；PNG无损透明；GIF有限色动画简单透明；TIFF高质量工作流；SVG矢量；PSD保留图层。|照片、透明、动画、矢量、编辑。
+S2-Q03|AR/VR|AR与VR概念有什么区别？|AR真实环境上叠加内容；VR主要呈现虚拟环境；设备交互与环境呈现不同。|现实上加，进入虚拟。
+S2-Q04|摄影视频|景别的定义与五种基本类型是什么？|主体在画面中呈现的范围大小；远景、全景、中景、近景、特写。|远全中近特。
+S2-P01|动画基础|手绘动画人物行走规律，如何组织关键姿势？|接触、下沉、经过、上升、对侧接触，再重复；重心转移、左右交替、手脚协调、支撑稳定、首尾衔接。|接触下沉经过上升，换脚重复。
+S2-P02|设计实践|校园小组作业故事：至少6镜，每镜写景别、光影、画面内容。|可用8镜：晨光教学楼远景；门厅全景会合；窗侧光中景讨论；桌面柔光特写计划；走廊中景整设备；自然光全景拍摄；屏幕补光近景剪辑；室内柔光中景共同看片。|入校、会合、讨论、计划、拍摄、后期、成果。`;
+const embedded=JSON.parse(document.getElementById('embedded-bank').textContent);
+function parseRows(text,original){return text.trim().split('\n').map(line=>{const [id,c,q,a,e='',opts='']=line.split('|');if(!id||!q||!a)throw Error('题库行损坏');const pending=a==='?';const options=opts?opts.split(';'):!pending&&(a==='对'||a==='错')?['对','错']:[];if(options.length&&!pending&&!options.includes(a))throw Error('答案不在选项中：'+id);return{id,c,q,a,e,options,pending,source:original?'original':id.startsWith('S1')?'shot1':'shot2',type:options.length?(a==='对'||a==='错'?'tf':'mc'):'recall'};});}
+let bank=[];try{bank=embedded||[...parseRows(window.bankText,true),...parseRows(screenshotText,false)];if(bank.length!==326||new Set(bank.map(q=>q.id)).size!==bank.length)throw Error('题目数量或编号校验失败');}catch(e){document.getElementById('card').textContent='题库读取失败：'+e.message;throw e;}
+const KEY='zhilian-bank-v1';const fresh=()=>({version:1,answers:{},reviews:{},saved:[],notes:{}});let state=fresh(),storageError=false;
+function validState(v){if(!v||v.version!==1||!v.answers||!v.reviews||!v.notes||!Array.isArray(v.saved))return false;const map=new Map(bank.map(q=>[q.id,q]));if(v.saved.some(id=>!map.has(id))||new Set(v.saved).size!==v.saved.length)return false;for(const [id,a]of Object.entries(v.answers)){const q=map.get(id);if(!q||q.pending||!q.options.length||!a||!q.options.includes(a.choice)||typeof a.firstCorrect!=='boolean'||a.correct!==(a.choice===q.a))return false;}for(const [id,r]of Object.entries(v.reviews)){const q=map.get(id);if(!q||q.pending||q.options.length||!['known','again'].includes(r))return false;}for(const [id,n]of Object.entries(v.notes))if(!map.has(id)||typeof n!=='string'||n.length>20000)return false;return true;}
+try{const raw=localStorage.getItem(KEY);if(raw){const v=JSON.parse(raw);if(validState(v))state=v;else storageError=true;}}catch(e){storageError=true;}
+const $=id=>document.getElementById(id),esc=s=>String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));let mode='practice',category='all',source='all',type='all',query='',current=null,revealed=false,retrying=false,session=null,page=0;
+function toast(s){const el=document.createElement('div');el.className='toast';el.setAttribute('role','status');el.textContent=s;document.body.append(el);setTimeout(()=>el.remove(),3500);}
+function persist(){try{localStorage.setItem(KEY,JSON.stringify(state));}catch(e){storageError=true;$('storageWarning').hidden=false;$('storageWarning').textContent='当前浏览器不允许本地保存。请在关闭前导出记录。';}}
+const sourceLabel=s=>({original:'原创模拟',shot1:'截图第一批 · 参考答案',shot2:'截图第二批 · 参考答案'}[s]);
+const base=()=>bank.filter(q=>(category==='all'||q.c===category)&&(source==='all'||q.source===source)&&(type==='all'||q.type===type)&&(!query||(q.id+' '+q.q+' '+q.a+' '+q.e).toLowerCase().includes(query.toLowerCase())));
+function filtered(){let arr=base();if(mode==='pending')return arr.filter(q=>q.pending);arr=arr.filter(q=>!q.pending);if(mode==='wrong')return arr.filter(q=>session?.includes(q.id));if(mode==='saved')return arr.filter(q=>state.saved.includes(q.id));return arr;}
+function resetView(){session=mode==='wrong'?bank.filter(q=>state.answers[q.id]?.correct===false||state.reviews[q.id]==='again').map(q=>q.id):null;current=null;revealed=false;retrying=false;page=0;render();}
+function navigate(id){current=id;revealed=false;retrying=false;render();$('card').scrollIntoView({behavior:'smooth',block:'start'});}
+function render(){const arr=filtered();let at=arr.findIndex(q=>q.id===current);if(at<0){at=0;current=arr[0]?.id||null;revealed=false;retrying=false;}const q=arr[at];const pending=bank.filter(q=>q.pending).length;$('inventory').textContent=bank.length+'条题目记录 · '+(bank.length-pending)+'条可练习 · '+pending+'条待补或待核实 · 本地离线版';$('nav').innerHTML=[['practice','◫ 顺序练习'],['wrong','↻ 错题重练'],['saved','☆ 我的收藏'],['memo','✧ 速记卡片'],['pending','! 待核实题']].map(([k,n])=>'<button data-mode="'+k+'" class="'+(mode===k?'active':'')+'">'+n+'</button>').join('');document.querySelectorAll('[data-mode]').forEach(b=>b.onclick=()=>{mode=b.dataset.mode;resetView();});const answers=Object.values(state.answers);$('answered').textContent=answers.length;$('accuracy').textContent=answers.length?Math.round(answers.filter(a=>a.firstCorrect).length/answers.length*100)+'%':'—';$('selfstats').textContent='主观题已自评 '+Object.keys(state.reviews).length+' · 收藏 '+state.saved.length+' · 待重练 '+bank.filter(q=>state.answers[q.id]?.correct===false||state.reviews[q.id]==='again').length;
+const maxPage=Math.max(0,Math.ceil(arr.length/30)-1);page=Math.min(page,maxPage);$('listtitle').textContent='当前列表 '+arr.length+'题';$('numbers').innerHTML=arr.slice(page*30,page*30+30).map(item=>{let a=state.answers[item.id],r=state.reviews[item.id];return'<button data-jump="'+item.id+'" class="'+(item.id===current?'current':a?(a.correct?'yes':'no'):r?(r==='known'?'yes':'no'):'')+'" title="'+esc(item.q)+'">'+esc(item.id)+'</button>';}).join('');document.querySelectorAll('[data-jump]').forEach(b=>b.onclick=()=>navigate(b.dataset.jump));$('pageprev').disabled=page===0;$('pagenext').disabled=page===maxPage;$('pageprev').onclick=()=>{page--;render();};$('pagenext').onclick=()=>{page++;render();};
+if(!q){$('card').innerHTML='<div class="empty"><h2>'+({wrong:'暂时没有需要重练的题',saved:'还没有收藏',pending:'当前筛选没有待核实题'}[mode]||'没有匹配的题目')+'</h2><p>可切换模块、来源或清空搜索。</p></div>';return;}
+const answer=state.answers[q.id],objective=!!q.options.length,show=q.pending||mode==='memo'||revealed||(!retrying&&!!answer),saved=state.saved.includes(q.id);let body='';
+if(q.pending)body='<div class="feedback pending"><b>待补充 / 待核实 · 不计分</b>\n'+esc(q.e)+'</div>';
+else if(mode==='memo')body='<div class="memo"><b>✧ 速记</b><br>'+esc(q.e)+'</div><div class="feedback"><b>参考答案</b>\n'+esc(q.a)+'</div>';
+else if(objective){body=q.options.map((o,i)=>'<button class="option '+(show?(o===q.a?'good':answer?.choice===o?'bad':''):'')+'" data-choice="'+i+'" '+(show?'disabled':'')+'><b>'+String.fromCharCode(65+i)+'</b><span>'+esc(o)+(show&&o===q.a?' ✓ 正确答案':show&&answer?.choice===o?' ✕ 你的选择':'')+'</span></button>').join('');if(show)body+='<div class="feedback" role="status"><b>'+(answer?.correct?'✓ 回答正确':'✕ 回答错误')+'</b>\n正确答案：'+esc(q.a)+'\n'+esc(q.e)+'</div><div class="memo"><b>✧ 速记考点</b><br>'+esc(q.e)+'</div><button class="btn" id="retry" style="margin-top:14px">重新作答</button>';}
+else{body='<label for="draft" class="muted">先回忆或写下要点（自动保存）</label><textarea id="draft" placeholder="输入你的答题要点…">'+esc(state.notes[q.id]||'')+'</textarea>'+(show?'<div class="feedback" role="status"><b>参考答案 / 得分点</b>\n'+esc(q.a)+'</div><div class="memo"><b>✧ 速记</b><br>'+esc(q.e)+'</div><div class="actions"><button class="btn" id="again">还需复习'+(state.reviews[q.id]==='again'?' ✓':'')+'</button><button class="btn primary" id="known">已经掌握'+(state.reviews[q.id]==='known'?' ✓':'')+'</button></div>':'<button class="btn primary" id="reveal" style="margin-top:15px">查看参考答案</button>');}
+$('card').innerHTML='<div class="top"><span class="tag">'+esc(q.c)+' · '+(q.pending?'待核实':q.type==='mc'?'单选':q.type==='tf'?'判断':'回忆 / 简答')+'</span><button class="btn" id="star">'+(saved?'★ 已收藏':'☆ 收藏')+'</button></div><div class="muted" style="margin-top:18px">'+esc(q.id)+' · 第'+(at+1)+' / '+arr.length+'题 · '+esc(sourceLabel(q.source))+'</div><h2>'+esc(q.q)+'</h2>'+body+(show?'<div class="actions"><button class="btn" id="prev" '+(at===0?'disabled':'')+'>← 上一题</button><button class="btn primary" id="next" '+(at===arr.length-1?'disabled':'')+'>下一题 →</button></div>':'')+'<details><summary>题目说明</summary><div class="foot">'+(q.source==='original'?'根据岗位范围编写的原创模拟题，非官方真题。':'根据用户截图整理的参考题；部分题干与选项作清晰化改写，未获得原标准答案。')+'</div></details>';
+$('star').onclick=()=>{state.saved=saved?state.saved.filter(id=>id!==q.id):[...state.saved,q.id];persist();render();};document.querySelectorAll('[data-choice]').forEach(b=>b.onclick=()=>{if(show)return;const choice=q.options[Number(b.dataset.choice)],correct=choice===q.a;state.answers[q.id]={choice,correct,firstCorrect:answer?answer.firstCorrect:correct};revealed=true;retrying=false;persist();render();});if($('retry'))$('retry').onclick=()=>{retrying=true;revealed=false;render();};if($('draft'))$('draft').oninput=e=>{state.notes[q.id]=e.target.value;persist();};if($('reveal'))$('reveal').onclick=()=>{revealed=true;render();};for(const [id,value]of [['again','again'],['known','known']])if($(id))$(id).onclick=()=>{state.reviews[q.id]=value;persist();render();};if($('prev'))$('prev').onclick=()=>navigate(arr[at-1].id);if($('next'))$('next').onclick=()=>navigate(arr[at+1].id);
+}
+for(const c of [...new Set(bank.map(q=>q.c))]){const o=document.createElement('option');o.value=c;o.textContent=c;$('category').append(o);}$('category').onchange=e=>{category=e.target.value;resetView();};$('source').onchange=e=>{source=e.target.value;resetView();};$('type').onchange=e=>{type=e.target.value;resetView();};$('search').oninput=e=>{query=e.target.value.trim();resetView();};
+function download(name,text,mime){const url=URL.createObjectURL(new Blob([text],{type:mime}));const a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),3000);}
+$('export').onclick=()=>download('知练-学习记录-'+new Date().toISOString().slice(0,10)+'.json',JSON.stringify(state,null,2),'application/json');$('import').onclick=()=>$('file').click();$('file').onchange=async e=>{const f=e.target.files[0];if(!f)return;try{if(f.size>10*1024*1024)throw Error('文件超过10MB');const v=JSON.parse(await f.text());if(!validState(v))throw Error('记录格式不正确或不属于此题库');state.answers={...state.answers,...v.answers};state.reviews={...state.reviews,...v.reviews};state.notes={...state.notes,...v.notes};state.saved=[...new Set([...state.saved,...v.saved])];persist();resetView();toast('已合并导入记录；同题以导入记录为准。');}catch(err){toast('导入失败：'+err.message);}e.target.value='';};
+$('download').onclick=()=>{const doc=document.documentElement.cloneNode(true);doc.querySelector('#external-bank')?.remove();doc.querySelector('#embedded-bank').textContent=JSON.stringify(bank).replace(/</g,'\\u003c');doc.querySelector('#card').textContent='正在加载本地题库…';doc.querySelector('#nav').replaceChildren();doc.querySelector('#numbers').replaceChildren();doc.querySelector('#category').innerHTML='<option value="all">全部知识模块</option>';doc.querySelector('#search').setAttribute('value','');doc.querySelector('#file').removeAttribute('value');doc.querySelectorAll('select').forEach(el=>el.querySelectorAll('option').forEach(o=>o.removeAttribute('selected')));doc.querySelector('#storageWarning').hidden=true;doc.querySelector('#inventory').textContent='离线题库';doc.querySelector('#answered').textContent='0';doc.querySelector('#accuracy').textContent='—';doc.querySelector('#selfstats').textContent='';doc.querySelectorAll('.toast').forEach(n=>n.remove());download('知练-数字媒体离线题库.html','<!doctype html>\n'+doc.outerHTML,'text/html;charset=utf-8');toast('已生成单文件离线版，不包含你的答题记录；记录请另行导出。');};
+if(storageError){$('storageWarning').hidden=false;$('storageWarning').textContent='本地记录不可用或格式异常。请使用导出记录备份；本次可继续练习。';}render();
+</script></body></html>
